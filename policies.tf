@@ -60,6 +60,15 @@ resource "aws_iam_policy" "pitr_lambda_policy" {
       ]
     },
     {
+      "Effect": "Deny",
+      "Action": [
+        "dynamodb:DeleteTable"
+      ],
+      "Resource": [
+          "${aws_dynamodb_table.dynamodb_table.arn}"
+      ]
+    },
+    {
       "Effect": "Allow",
       "Action": [
         "dynamodb:Scan",
