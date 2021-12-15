@@ -68,7 +68,7 @@ def delete_table(table_name):
 
 def handler(event, context):
     response = None
-    date_string_format = '%Y-%m-%d'
+    date_string_format = '%Y-%m-%d %H:%M:%S'
 
     logger.info(event)
     if 'type' not in event:
@@ -98,9 +98,9 @@ def handler(event, context):
             point_in_time = enabled[2]
         else:
             try:
-                point_in_time = datetime.strptime(date_string_format, point_in_time)
+                point_in_time = datetime.strptime(point_in_time, date_string_format)
             except ValueError as e:
-                raise ValueError("Kindly make sure the `point_in_time` value is in the format YYYY-MM-DD")
+                raise ValueError("Kindly make sure the `point_in_time` value is in the format `YYYY-MM-DD HH:MM:SS`")
         logger.info(f"These are the values: {table_name} | {target_table_name} | {point_in_time}")
         response = restore_table(
             table_name=table_name,
